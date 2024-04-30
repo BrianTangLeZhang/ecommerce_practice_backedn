@@ -6,11 +6,12 @@ router.get("/", async (req, res) => {
   try {
     const products = await Product.find();
     let categories = [];
-    products.map((p) => {
+    products.forEach((p) => {
       if (!categories.includes(p.category)) categories.push(p.category);
     });
+    res.status(200).send(categories);
   } catch (e) {
-    throw new Error(e);
+    res.status(400).send({ msg: e.message });
   }
 });
 
