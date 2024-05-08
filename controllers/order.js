@@ -3,7 +3,7 @@ const router = require("../routes/product");
 
 const getOrders = async () => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find().sort({ _id: -1 });
     return orders;
   } catch (e) {
     throw new Error(e);
@@ -60,5 +60,5 @@ module.exports = {
   addOrder,
   updateOrder,
   deleteOrder,
-  getOrder
+  getOrder,
 };
