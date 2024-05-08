@@ -12,7 +12,7 @@ app.use(express.json());
 const corsHandler = cors({
   origin: "*",
   methods: "GET,PUT,POST,DELETE",
-  allowedHeaders: ("Content-Type", "Authorization", "x-auth-token"),
+  allowedHeaders: ["Content-Type", "Authorization", "x-auth-token"],
   preflightContinue: true,
   optionsSuccessStatus: 200,
 });
@@ -27,6 +27,7 @@ mongoose
 
 app.use("/products", require("./routes/product"));
 app.use("/categories", require("./routes/category"));
+app.use("/orders", require("./routes/order"));
 
 app.listen(5000, () => {
   console.log("Server is running on: http://localhost:5000");

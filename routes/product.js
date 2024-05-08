@@ -11,8 +11,9 @@ const {
 router.get("/", async (req, res) => {
   try {
     const category = req.query.category;
+    const page = req.query.page;
 
-    const products = await getProducts(category);
+    const products = await getProducts(category, page);
     if (products) res.status(200).send(products);
     else res.status(404).send("Products not found");
   } catch (e) {
@@ -44,6 +45,7 @@ router.post("/", async (req, res) => {
     const newProduct = await addProduct(product);
     res.status(200).send(newProduct);
   } catch (e) {
+    console.log(e);
     res.status(400).send({ msg: e.message });
   }
 });

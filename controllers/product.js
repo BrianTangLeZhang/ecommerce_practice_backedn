@@ -1,11 +1,19 @@
 const Product = require("../models/Product");
 
-const getProducts = async (category) => {
+const getProducts = async (category, page = 1) => {
   try {
     let filters = {};
     let sortBy = { _id: -1 };
     if (category) filters.category = category;
-    const products = await Product.find(filters).sort(sortBy);
+    /* pagination
+      .limit(n) - show n * items
+      .skip()
+    */
+    let perPage = 6;
+    const products = await Product.find(filters)
+      .limit(perPage)
+      .skip((page - 1) * perPage)
+      .sort(sortBy);
     return products;
   } catch (e) {
     throw new Error(e);
