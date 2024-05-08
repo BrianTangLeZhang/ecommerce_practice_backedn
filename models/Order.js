@@ -4,11 +4,8 @@ const { Schema, model } = mongoose;
 const OrderSchema = new Schema({
   customerName: { type: String, required: true },
   customerEmail: { type: String, reuqired: true },
-  products: [{ type: Schema.Types.ObjectId, ref: "Product" }],
-  total: {
-    type: Number,
-    reuqired: true,
-  },
+  products: { type: Array, required: true },
+  total: { type: Number, reuqired: true },
   status: {
     type: String,
     default: "pending",

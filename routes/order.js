@@ -74,8 +74,9 @@ router.delete("/:id", async (req, res) => {
     if (order) {
       await deleteOrder(id);
       res.status(200).send("Deleted");
+    } else {
+      res.status(404).send("Order not found");
     }
-    res.status(404).send("Order not found");
   } catch (e) {
     res.status(400).send({ msg: e.message });
   }
