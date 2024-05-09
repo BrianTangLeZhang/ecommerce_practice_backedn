@@ -29,10 +29,10 @@ router.post("/", async (req, res) => {
       total: req.body.total,
       status: req.body.status,
     };
+
     const newOrder = await addOrder(order);
     res.status(200).send(newOrder);
   } catch (e) {
-    console.log(e);
     res.status(400).send({ msg: e.message });
   }
 });

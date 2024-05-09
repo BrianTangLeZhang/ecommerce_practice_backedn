@@ -27,6 +27,7 @@ mongoose
 
 app.use("/products", require("./routes/product"));
 app.use("/categories", require("./routes/category"));
+app.use("/payment", require("./routes/payment"));
 app.use("/orders", require("./routes/order"));
 
 app.listen(5000, () => {
