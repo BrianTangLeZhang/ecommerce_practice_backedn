@@ -9,6 +9,8 @@ const app = express();
 app.use(express.json());
 
 //middleware to set up a crop golicy
+app.use("/uploads", express.static("uploads"));
+
 const corsHandler = cors({
   origin: "*",
   methods: "GET,PUT,POST,DELETE",
@@ -29,6 +31,7 @@ app.use("/products", require("./routes/product"));
 app.use("/categories", require("./routes/category"));
 app.use("/payment", require("./routes/payment"));
 app.use("/orders", require("./routes/order"));
+app.use("/images", require("./routes/image"));
 
 app.listen(5000, () => {
   console.log("Server is running on: http://localhost:5000");
