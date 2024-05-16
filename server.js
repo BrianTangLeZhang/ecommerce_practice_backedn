@@ -32,6 +32,7 @@ app.use("/categories", require("./routes/category"));
 app.use("/payment", require("./routes/payment"));
 app.use("/orders", require("./routes/order"));
 app.use("/images", require("./routes/image"));
+app.use("/users",require("./routes/user"))
 
 app.listen(5000, () => {
   console.log("Server is running on: http://localhost:5000");
