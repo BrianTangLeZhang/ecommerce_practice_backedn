@@ -9,10 +9,11 @@ const {
   deleteOrder,
   updateOrder,
 } = require("../controllers/order");
+const { isUserValid, isAdmin } = require("../middleware/auth");
 
-router.get("/", async (req, res) => {
+router.get("/", isUserValid, async (req, res) => {
   try {
-    const orders = await getOrders();
+    const orders = await getOrders(req.user);
     if (!orders) res.status(404).send("No orders found");
     res.status(200).send(orders);
   } catch (e) {
@@ -20,7 +21,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isUserValid, async (req, res) => {
   try {
     const order = {
       customerName: req.body.customerName,
@@ -37,7 +38,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const {
@@ -67,7 +68,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const order = await getOrder(id);

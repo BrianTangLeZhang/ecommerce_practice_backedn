@@ -1,21 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-const {
-  loginUser,
-  signUpUser,
-} = require("../controllers/user");
+const { loginUser, signUpUser } = require("../controllers/user");
 
 router.post("/login", async (req, res) => {
   try {
-    const user = {
-      email: req.body.email,
-      password: req.body.password,
-    };
-    const loginedUser = await loginUser(user);
+    const email = req.body.email;
+    const password = req.body.password;
+    const loginedUser = await loginUser(email,password);
     res.status(200).send(loginedUser);
   } catch (e) {
-    console.log(e);
     res.status(400).send({ msg: e.message });
   }
 });
@@ -37,7 +31,6 @@ router.post("/signup", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-   
   } catch (e) {
     res.status(400).send({ msg: e.message });
   }
@@ -45,7 +38,6 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    
   } catch (e) {
     res.status(400).send({ msg: e.message });
   }

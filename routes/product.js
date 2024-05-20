@@ -7,6 +7,7 @@ const {
   addProduct,
   updateProduct,
 } = require("../controllers/product");
+const { isUserValid, isAdmin } = require("../middleware/auth");
 
 router.get("/", async (req, res) => {
   try {
@@ -21,7 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isUserValid, async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -34,7 +35,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   try {
     const product = {
       name: req.body.name,
@@ -50,7 +51,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const product = {
@@ -70,7 +71,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   try {
     const id = req.params.id;
     const target = await Product.findById(id);

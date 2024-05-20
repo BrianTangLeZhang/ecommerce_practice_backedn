@@ -8,7 +8,7 @@ const { JWT_PRIVATE_KEY } = require("../config");
 
 const getUserByEmail = async (email) => {
   const user = await User.findOne({ email: email });
-  return user;
+  return user
 };
 
 const generateTokenForUser = async (user) => {
@@ -16,37 +16,35 @@ const generateTokenForUser = async (user) => {
     {
       _id: user._id,
       name: user.name,
-      emaiL: user.email,
+      email: user.email,
       role: user.role,
     },
     JWT_PRIVATE_KEY
   );
 };
 
-const loginUser = async (user) => {
-  const { email, password } = user;
+const loginUser = async (email,password) => {
+  const user = await getUserByEmail(email);
 
-  const target = await getUserByEmail(email);
-
-  // 2. if target don't exists, return error
-  if (!target) {
+  // 2. if user don't exists, return error
+  if (!user) {
     throw new Error("Invalid email or password");
   }
 
   // 3. check if password match or not
-  const isPasswordMatch = bcrypt.compareSync(password, target.password);
+  const isPasswordMatch = bcrypt.compareSync(password, user.password);
   if (!isPasswordMatch) {
     throw new Error("Invalid email or password");
   }
 
   // 4. generate JWT token
-  const token = generateTokenForUser(target);
+  const token = generateTokenForUser(user);
   // 5. return back the user data
   return {
-    _id: target._id,
-    name: target.name,
-    emaiL: target.email,
-    role: target.role,
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
     token: token,
   };
 };
