@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const { MONGODB_URL } = require("./config");
 
 //create express app
 const app = express();
@@ -23,7 +24,7 @@ app.use(corsHandler);
 
 //connect to mongoDB
 mongoose
-  .connect("mongodb://127.0.0.1:27017/ecommerce")
+  .connect(`${MONGODB_URL}ecommerce`)
   .then(() => console.log("MongoDB connected successfully"))
   .catch((e) => console.log(e));
 
@@ -32,8 +33,8 @@ app.use("/categories", require("./routes/category"));
 app.use("/payment", require("./routes/payment"));
 app.use("/orders", require("./routes/order"));
 app.use("/images", require("./routes/image"));
-app.use("/users",require("./routes/user"))
-app.use("/categories",require("./routes/category"))
+app.use("/users", require("./routes/user"));
+app.use("/categories", require("./routes/category"));
 
 app.listen(5000, () => {
   console.log("Server is running on: http://localhost:5000");

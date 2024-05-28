@@ -11,6 +11,7 @@ const getProducts = async (category, page = 1) => {
     */
     let perPage = 6;
     const products = await Product.find(filters)
+      .populate("category")
       .limit(perPage)
       .skip((page - 1) * perPage)
       .sort(sortBy);

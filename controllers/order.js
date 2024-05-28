@@ -4,6 +4,7 @@ const {
   BILLPLZ_API_KEY,
   BILLPLZ_COLLECTION_ID,
   BILLPLZ_API_URL,
+  FRONTEND_URL,
 } = require("../config");
 
 const getOrders = async () => {
@@ -39,8 +40,8 @@ const addOrder = async (order) => {
         name: order.customerName,
         amount: parseFloat(order.total) * 100,
         description: `Payment for Store`,
-        callback_url: "http://localhost:3000/verify-payment",
-        redirect_url: "http://localhost:3000/verify-payment",
+        callback_url: `${FRONTEND_URL}verify-payment`,
+        redirect_url: `${FRONTEND_URL}verify-payment`,
       },
     });
 
